@@ -36,8 +36,80 @@ public class Connection {
 			socket.close();
 			return true;
 		} catch (IOException e) {
+			System.out.println("Error Locations:");
+			System.out.println("Class: Connections");
+			System.out.println("Method: disconnect()");
 			e.printStackTrace();
 			return false;
 		}
 	}
+
+	/**
+	 * This method just calls {@link #send(byte[])} after converting to a byte
+	 * array and returns the result of the {@link #send(byte[])} method
+	 * 
+	 * @param message
+	 *            - The message to send as a string.
+	 * @return Whether the message was sent.
+	 */
+	public static boolean send(String message) {
+		return send(message.getBytes());
+	}
+
+	/**
+	 * This send the given message through the client after checking if it is
+	 * open with the {@link #clientConnected()} method.
+	 * 
+	 * @param message
+	 *            - The message to send the server in a byte array.
+	 * @return whether the message was sent
+	 */
+	public static boolean send(byte[] message) {
+		try {
+			if (clientConnected()) {
+				socket.getOutputStream().write(message);
+				return true;
+			} else {
+				return false;
+			}
+		} catch (IOException e) {
+			System.out.println("Error Locations:");
+			System.out.println("Class: Connections");
+			System.out.println("Method: send(byte[] message)");
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * This check if the socket is open by testing these things:
+	 * <ul>
+	 * <li>Is the socket null?</li>
+	 * <li>Is the output stream null?</li>
+	 * <li>Is the input stream null?</li>
+	 * <li>Is the next integer of data -1?</li>
+	 * </ul>
+	 * 
+	 * @return Whether the socket is open
+	 * @throws IOException
+	 */
+	private static boolean clientConnected() throws IOException {
+		return socket != null && socket.getOutputStream() != null && socket.getInputStream() != null && socket.getInputStream().read() != -1;
+	}
+
+	public static String prepareMessage(Types type, String message) {
+		switch (type) {
+		case Details:
+			return "/det/" + id + "/det/" + message + "/det/";
+		case Login:
+			return "/log/" + id + "/log/" + message + "/log/";
+		case Message:
+			return "/mes/" + id + "/mes/" + message + "/mes/";
+		case User:
+			return "/usr/" + id + "/usr/" + message + "/usr/";
+		default:
+			return "";
+		}
+	}
+
 }
