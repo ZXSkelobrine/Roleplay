@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre8/lib/charsets.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre8/lib/deploy.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre8/lib/javaws.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre8/lib/jce.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre8/lib/jfr.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre8/lib/jfxswt.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre8/lib/jsse.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre8/lib/management-agent.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre8/lib/plugin.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre8/lib/resources.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre8/lib/rt.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ryan/Downloads/General Files/Jars/Libs/weblaf-1.27.jar" sourcepath="C:/Users/Ryan/Downloads/General Files/Jars/Libs/Sources/weblaf-src-1.27.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/Ryan/Downloads/General%20Files/Jars/Libs/JavaDocs/weblaf-javadoc-1.27.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
