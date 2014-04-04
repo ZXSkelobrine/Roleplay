@@ -8,7 +8,7 @@ Used Third Party Libraries:
 Current Available Features:
 - N/A
 
-Future Features:
--Details about your character.
--Private message.
--Password authentication.
+Future Features:  
+-Details about your character.  
+-Private message.  
+-Password authentication.  
