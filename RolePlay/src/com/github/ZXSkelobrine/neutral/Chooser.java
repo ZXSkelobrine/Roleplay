@@ -13,7 +13,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.alee.laf.WebLookAndFeel;
+import com.github.ZXSkelobrine.client.windows.Main;
+
 import javax.swing.SwingConstants;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -61,6 +64,8 @@ public class Chooser extends JFrame {
 		JButton btnClient = new JButton("Launch The Client");
 		btnClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				new Main();
+				dismiss();
 			}
 		});
 		btnClient.setBounds(10, 129, 179, 23);
@@ -70,5 +75,9 @@ public class Chooser extends JFrame {
 		lblPickAndOption.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPickAndOption.setBounds(0, 74, 199, 14);
 		contentPane.add(lblPickAndOption);
+	}
+
+	public void dismiss() {
+		dispose();
 	}
 }
