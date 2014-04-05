@@ -3,8 +3,6 @@ package com.github.ZXSkelobrine.client.listeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import com.github.ZXSkelobrine.client.connections.Connection;
-
 public class WindowActionListener implements ActionListener {
 	private static WindowActionListener instance;
 

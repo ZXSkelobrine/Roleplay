@@ -17,5 +17,6 @@
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/Ryan/Downloads/General%20Files/Jars/Libs/JavaDocs/weblaf-javadoc-1.27.zip!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="res"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
