@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.alee.laf.WebLookAndFeel;
+import com.github.ZXSkelobrine.client.connections.Connection;
 import com.github.ZXSkelobrine.client.windows.Main;
 import com.github.ZXSkelobrine.server.revolve.Chief;
 
@@ -27,11 +28,20 @@ public class Chooser extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private static boolean isClient = true;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		Runtime.getRuntime().addShutdownHook(new Thread("Shutdown Hook Thread") {
+			@Override
+			public void run() {
+				if (isClient) {
+					Connection.disconnect();
+				}
+			}
+		});
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -67,6 +77,7 @@ public class Chooser extends JFrame {
 		btnServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new Chief();
+				isClient = false;
 				dismiss();
 			}
 		});
@@ -77,6 +88,7 @@ public class Chooser extends JFrame {
 		btnClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new Main();
+				isClient = true;
 				dismiss();
 			}
 		});

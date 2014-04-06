@@ -28,6 +28,15 @@ public class Connections {
 		Chief.logMessage("Connections", "Client name added");
 	}
 
+	public static Client getClientFromName(String name) {
+		synchronized (getClients()) {
+			for (Client client : getClients()) {
+				if (name.toLowerCase().equals(client.getName().toLowerCase())) return client;
+			}
+		}
+		return null;
+	}
+
 	public static void setClientDescription(String description, Client client) {
 		client.setDescription(description);
 		clients.set(clients.indexOf(client), client);

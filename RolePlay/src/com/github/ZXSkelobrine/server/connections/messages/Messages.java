@@ -10,17 +10,40 @@ import com.github.ZXSkelobrine.server.connections.Sending;
 public class Messages {
 	public static void processMessage(String message, Client client) {
 		String type = message.substring(1, 4);
-		if (type.equalsIgnoreCase("say")) {
+		if (type.equalsIgnoreCase("say")) {// Say
 			say(message, client);
 		}
-		if (type.equalsIgnoreCase("nam")) {
+		if (type.equalsIgnoreCase("nam")) {// Name
 			name(message, client);
 		}
-		if (type.equalsIgnoreCase("act")) {
+		if (type.equalsIgnoreCase("act")) {// Act
 			act(message, client);
 		}
-		if (type.equalsIgnoreCase("clo")) {
+		if (type.equalsIgnoreCase("clo")) {// Close
 			close(message, client);
+		}
+		if (type.equalsIgnoreCase("usr")) {// User List
+			users(message, client);
+		}
+		if (type.equalsIgnoreCase("det")) {// Details
+			details(message, client);
+		}
+	}
+
+	private static void details(String message, Client client) {
+		Client about = Connections.getClientFromName(message.split("/det/")[2]);
+		String toMessage = "/det/" + about.getName() + "/det/" + about.getDescription() + "/det/" + about.getColour() + "/det/";
+		Sending.send(toMessage, client.getSocket());
+	}
+
+	private static void users(String message, Client client) {
+		synchronized (Connections.getClients()) {
+			StringBuilder builder = new StringBuilder();
+			builder.append("/usr/");
+			for (Client clients : Connections.getClients()) {
+				builder.append(clients.getName() + "/usr/");
+			}
+			Sending.send(builder.toString(), client.getSocket());
 		}
 	}
 

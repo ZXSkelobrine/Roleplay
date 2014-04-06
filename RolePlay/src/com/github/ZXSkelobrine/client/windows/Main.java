@@ -31,6 +31,7 @@ public class Main extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtMessage;
 	private static JTextPane txtpnMessages;
+	private static JList<String> lstUsers;
 
 	/**
 	 * Create the frame.
@@ -64,7 +65,7 @@ public class Main extends JFrame {
 		gbc_txtpnMessages.gridy = 0;
 		contentPane.add(txtpnMessages, gbc_txtpnMessages);
 
-		JList<String> lstUsers = new JList<String>();
+		lstUsers = new JList<String>();
 		GridBagConstraints gbc_lstUsers = new GridBagConstraints();
 		gbc_lstUsers.gridheight = 2;
 		gbc_lstUsers.insets = new Insets(0, 0, 5, 5);
@@ -126,6 +127,11 @@ public class Main extends JFrame {
 		contentPane.add(btnSend, gbc_btnSend);
 
 		JButton btnDetails = new JButton("Details");
+		btnDetails.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Connection.send(Connection.prepareMessage(Types.Details, lstUsers.getSelectedValue(), ""));
+			}
+		});
 		GridBagConstraints gbc_btnDetails = new GridBagConstraints();
 		gbc_btnDetails.insets = new Insets(0, 0, 5, 0);
 		gbc_btnDetails.fill = GridBagConstraints.HORIZONTAL;
@@ -154,6 +160,7 @@ public class Main extends JFrame {
 
 	private void initCompleted() {
 		setVisible(true);
+		userThread();
 	}
 
 	public static void logMessage(String message, Color colour) {
@@ -167,4 +174,24 @@ public class Main extends JFrame {
 		}
 	}
 
+	public static void userThread() {
+		Thread userThread = new Thread("User Thread") {
+			@Override
+			public void run() {
+				while (true) {
+					Connection.send(Connection.prepareMessage(Types.User, "users", ""));
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		};
+		userThread.start();
+	}
+
+	public static void updateUsers(String[] users) {
+		lstUsers.setListData(users);
+	}
 }

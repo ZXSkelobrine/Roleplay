@@ -28,8 +28,16 @@ public class Listen {
 							if (Connection.socket.getInputStream().available() > 0) {
 								byte[] arg0 = new byte[Connection.socket.getInputStream().available()];
 								Connection.socket.getInputStream().read(arg0);
-
-								Main.logMessage(new String(arg0).split("/mes/")[1], getColourFromString(new String(arg0).split("/mes/")[2]));
+								if (new String(arg0).substring(1, 4).equalsIgnoreCase("usr")) {
+									String[] users = new String(arg0).split("/usr/");
+									Main.updateUsers(users);
+								} else if (new String(arg0).substring(1, 4).equalsIgnoreCase("det")) {
+									//1 - Name
+									//2 - Description
+									//3 - Colour
+								} else {
+									Main.logMessage(new String(arg0).split("/mes/")[1], getColourFromString(new String(arg0).split("/mes/")[2]));
+								}
 							}
 						} catch (IOException e) {
 
