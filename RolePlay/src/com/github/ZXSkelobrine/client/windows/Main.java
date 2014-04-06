@@ -1,11 +1,14 @@
 package com.github.ZXSkelobrine.client.windows;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -13,20 +16,33 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 import com.github.ZXSkelobrine.client.connections.Connection;
 import com.github.ZXSkelobrine.client.connections.Types;
+import com.github.ZXSkelobrine.server.revolve.Chief;
 
 public class Main extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtMessage;
+	private static JTextPane txtpnMessages;
 
 	/**
 	 * Create the frame.
 	 */
 	public Main() {
+		try {
+			String path = "/images/logo.png";
+			setTitle("Project Red Box - Client");
+			setIconImage(ImageIO.read(Chief.class.getResource(path)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 535, 417);
 		contentPane = new JPanel();
@@ -39,7 +55,7 @@ public class Main extends JFrame {
 		gbl_contentPane.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
-		JTextPane txtpnMessages = new JTextPane();
+		txtpnMessages = new JTextPane();
 		GridBagConstraints gbc_txtpnMessages = new GridBagConstraints();
 		gbc_txtpnMessages.gridheight = 2;
 		gbc_txtpnMessages.insets = new Insets(0, 0, 5, 5);
@@ -95,7 +111,11 @@ public class Main extends JFrame {
 		JButton btnSend = new JButton("Say");
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(Connection.send(Connection.prepareMessage(Types.Message_Say, txtMessage.getText())));
+				if (!txtMessage.getText().equalsIgnoreCase("") && txtMessage.getText() != null) {
+					Connection.send(Connection.prepareMessage(Types.Message_Say, txtMessage.getText(), Connection.colour));
+					txtMessage.setText("");
+					txtMessage.requestFocus();
+				}
 			}
 		});
 		GridBagConstraints gbc_btnSend = new GridBagConstraints();
@@ -114,6 +134,15 @@ public class Main extends JFrame {
 		contentPane.add(btnDetails, gbc_btnDetails);
 
 		JButton btnDo = new JButton("Do");
+		btnDo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (!txtMessage.getText().equalsIgnoreCase("") && txtMessage.getText() != null) {
+					Connection.send(Connection.prepareMessage(Types.Message_Do, txtMessage.getText(), Connection.colour));
+					txtMessage.setText("");
+					txtMessage.requestFocus();
+				}
+			}
+		});
 		GridBagConstraints gbc_btnDo = new GridBagConstraints();
 		gbc_btnDo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnDo.insets = new Insets(0, 0, 0, 5);
@@ -125,6 +154,17 @@ public class Main extends JFrame {
 
 	private void initCompleted() {
 		setVisible(true);
+	}
+
+	public static void logMessage(String message, Color colour) {
+		StyledDocument doc = txtpnMessages.getStyledDocument();
+		Style style = txtpnMessages.addStyle("Colour", null);
+		StyleConstants.setForeground(style, colour);
+		try {
+			doc.insertString(doc.getLength(), message + "\n", style);
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

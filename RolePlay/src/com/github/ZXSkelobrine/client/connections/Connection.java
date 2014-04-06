@@ -6,6 +6,7 @@ import java.net.Socket;
 public class Connection {
 	public static Socket socket;
 	public static String id = Identification.generateNewID();
+	public static String colour;
 
 	/**
 	 * This attempts to connect to the given server.
@@ -26,13 +27,23 @@ public class Connection {
 	}
 
 	/**
+	 * Sets the sockets colour.
+	 * 
+	 * @param colour
+	 *            - The colour to set to
+	 */
+	public static void setColour(String colour) {
+		Connection.colour = colour;
+	}
+
+	/**
 	 * This attempts to disconnect the socket.
 	 * 
 	 * @return whether the connection was closed successfully.
 	 */
 	public static boolean disconnect() {
 		try {
-			socket.getOutputStream().write(("/cl/" + id + "/cl/close/cl/").getBytes());
+			socket.getOutputStream().write(("/clo/" + id + "/clo/close/clo/").getBytes());
 			socket.close();
 			return true;
 		} catch (IOException e) {
@@ -68,6 +79,7 @@ public class Connection {
 		try {
 			if (clientConnected()) {
 				socket.getOutputStream().write(message);
+				socket.getOutputStream().flush();
 				return true;
 			} else {
 				return false;
@@ -96,24 +108,26 @@ public class Connection {
 		return socket != null && socket.getOutputStream() != null && socket.getInputStream() != null;
 	}
 
-	public static String prepareMessage(Types type, String message) {
+	public static String prepareMessage(Types type, String message, String colour) {
 		switch (type) {
 		case Details:
-			return "/det/" + id + "/det/" + message + "/det/";
+			return "/det/" + id + "/det/" + message + "/det/" + colour + "/det/";
 		case Login:
-			return "/log/" + id + "/log/" + message + "/log/";
+			return "/log/" + id + "/log/" + message + "/log/" + colour + "/log/";
 		case Message:
-			return "/mes/" + id + "/mes/" + message + "/mes/";
+			return "/mes/" + id + "/mes/" + message + "/mes/" + colour + "/mes/";
 		case User:
-			return "/usr/" + id + "/usr/" + message + "/usr/";
+			return "/usr/" + id + "/usr/" + message + "/usr/" + colour + "/usr/";
 		case Message_Do:
-			return "/act/" + id + "/act/" + message + "/act/";
+			return "/act/" + id + "/act/" + message + "/act/" + colour + "/act/";
 		case Message_Say:
-			return "/say/" + id + "/say/" + message + "/say/";
+			return "/say/" + id + "/say/" + message + "/say/" + colour + "/say/";
 		case Description:
-			return "/des/" + id + "/des/" + message + "/des/";
+			return "/des/" + id + "/des/" + message + "/des/" + colour + "/des/";
 		case Name:
-			return "/nam/" + id + "/nam/" + message + "/nam/";
+			return "/nam/" + id + "/nam/" + message + "/nam/" + colour + "/nam/";
+		case Colour:
+			return "/col/" + id + "/col/" + message + "/col/" + colour + "/col/";
 		default:
 			return "";
 		}

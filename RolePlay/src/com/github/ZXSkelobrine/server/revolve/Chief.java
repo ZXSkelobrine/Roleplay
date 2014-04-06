@@ -1,7 +1,9 @@
 package com.github.ZXSkelobrine.server.revolve;
 
+import java.io.IOException;
 import java.net.ServerSocket;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -11,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.alee.laf.WebLookAndFeel;
 import com.github.ZXSkelobrine.neutral.components.Switch;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
@@ -26,6 +29,13 @@ public class Chief extends JFrame {
 	 */
 	public Chief() {
 		WebLookAndFeel.install();
+		try {
+			String path = "/images/logo.png";
+			setTitle("Project Red Box - Server");
+			setIconImage(ImageIO.read(Chief.class.getResource(path)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -68,6 +78,12 @@ public class Chief extends JFrame {
 	}
 
 	public static void logMessage(String thread, String message) {
-		txtpnConsole.setText(txtpnConsole.getText() + thread + ": " + message + "\n");
+		if (txtpnConsole != null) {
+			if (txtpnConsole.getText() != null) {
+				txtpnConsole.setText(txtpnConsole.getText() + thread + ": " + message + "\n");
+			} else {
+				txtpnConsole.setText(thread + ": " + message + "\n");
+			}
+		}
 	}
 }

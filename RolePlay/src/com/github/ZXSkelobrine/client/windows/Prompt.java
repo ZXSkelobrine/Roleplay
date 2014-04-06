@@ -2,7 +2,10 @@ package com.github.ZXSkelobrine.client.windows;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,11 +14,15 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import com.alee.laf.WebLookAndFeel;
 import com.github.ZXSkelobrine.client.connections.Connection;
 import com.github.ZXSkelobrine.client.connections.Types;
+import com.github.ZXSkelobrine.client.connections.threads.Listen;
+import com.github.ZXSkelobrine.server.revolve.Chief;
 
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
+import javax.swing.JComboBox;
 
 public class Prompt extends JFrame {
 
@@ -25,13 +32,22 @@ public class Prompt extends JFrame {
 	private JTextField txtPort;
 	private JTextField txtName;
 	private JTextArea txtrDescription;
+	private JComboBox<String> cbxColour;
 
 	/**
 	 * Create the frame.
 	 */
 	public Prompt() {
+		WebLookAndFeel.install();
+		try {
+			String path = "/images/logo.png";
+			setTitle("Project Red Box - Connect");
+			setIconImage(ImageIO.read(Chief.class.getResource(path)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 291, 270);
+		setBounds(100, 100, 291, 312);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -63,13 +79,16 @@ public class Prompt extends JFrame {
 		JButton btnConnect = new JButton("Connect");
 		btnConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				Connection.setColour((String) cbxColour.getSelectedItem());
 				Connection.connect(txtIp.getText(), Integer.parseInt(txtPort.getText()));
-				Connection.send(Connection.prepareMessage(Types.Name, txtName.getText()));
-				Connection.send(Connection.prepareMessage(Types.Description, txtrDescription.getText()));
+				Connection.send(Connection.prepareMessage(Types.Name, txtName.getText(), Connection.colour));
+				Connection.send(Connection.prepareMessage(Types.Description, txtrDescription.getText(), Connection.colour));
+				Connection.send(Connection.prepareMessage(Types.Colour, (String) cbxColour.getSelectedItem(), Connection.colour));
+				Listen.startListening();
 				dispose();
 			}
 		});
-		btnConnect.setBounds(96, 198, 89, 23);
+		btnConnect.setBounds(93, 240, 89, 23);
 		contentPane.add(btnConnect);
 
 		txtName = new JTextField();
@@ -91,6 +110,17 @@ public class Prompt extends JFrame {
 
 		txtrDescription = new JTextArea();
 		scrollPane.setViewportView(txtrDescription);
+
+		JLabel lblCharacterColour = new JLabel("Character Colour:");
+		lblCharacterColour.setBounds(10, 199, 119, 14);
+		contentPane.add(lblCharacterColour);
+
+		String[] colours = new String[] { "Black", "Blue", "Cyan", "Dark Gray", "Gray", "Green", "Light Gray", "Magenta", "Orange", "Pink", "Red", "White", "Yellow" };
+		cbxColour = new JComboBox<String>();
+		DefaultComboBoxModel<String> dcbxm = new DefaultComboBoxModel<>(colours);
+		cbxColour.setModel(dcbxm);
+		cbxColour.setBounds(126, 198, 139, 20);
+		contentPane.add(cbxColour);
 		initCompleted();
 	}
 

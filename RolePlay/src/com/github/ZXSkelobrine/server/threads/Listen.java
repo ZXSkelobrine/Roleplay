@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.github.ZXSkelobrine.neutral.variables.Client;
 import com.github.ZXSkelobrine.server.connections.Connections;
+import com.github.ZXSkelobrine.server.connections.messages.Messages;
 import com.github.ZXSkelobrine.server.revolve.Chief;
 
 public class Listen {
@@ -34,6 +35,7 @@ public class Listen {
 											byte[] b = new byte[client.getSocket().getInputStream().available()];
 											client.getSocket().getInputStream().read(b);
 											Chief.logMessage(THREAD, "Message Recieved: " + new String(b) + "\tType: " + new String(b).substring(1, 4).substring(0, 1).toUpperCase() + new String(b).substring(1, 4).substring(1));
+											Messages.processMessage(new String(b), client);
 										}
 									}
 								} catch (IOException e) {
@@ -49,12 +51,7 @@ public class Listen {
 
 	public static void stopListening() {
 		running = false;
-		try {
-			listenThread.join();
-			Chief.logMessage(THREAD, "Thread stopped");
-		} catch (InterruptedException e) {
-			listenThread.interrupt();
-			e.printStackTrace();
-		}
+		listenThread.interrupt();
+		Chief.logMessage(THREAD, "Thread stopped");
 	}
 }

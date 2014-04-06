@@ -40,14 +40,15 @@ public class Connections {
 		Chief.logMessage("Connections", "Client colour added");
 	}
 
-	public static synchronized void terminateSocket(Socket socket) {
-		Sending.sendTerminationNotice(socket);
+	public static synchronized void terminateSocket(Client client) {
+		Sending.sendTerminationNotice(client.getSocket());
 		try {
-			socket.close();
+			client.getSocket().close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		clients.remove(socket);
+		clients.remove(client);
+		client.nullify();
 		Chief.logMessage("Connections", "Client terminated");
 	}
 }

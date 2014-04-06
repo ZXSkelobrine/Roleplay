@@ -38,12 +38,8 @@ public class Accept {
 
 	public static void stopAccepting() {
 		running = false;
-		try {
-			accept.join();
-			Chief.logMessage("Accept", "Accepting stopped");
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		accept.interrupt();
+		Chief.logMessage("Accept", "Accepting stopped");
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.github.ZXSkelobrine.server.connections;
 
+import java.awt.Color;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.Socket;
 
 import com.github.ZXSkelobrine.neutral.variables.Client;
@@ -32,7 +34,24 @@ public class Sending {
 		}
 	}
 
-	public static String prepareBroadcast(String name, String message) {
-		return name + " says: " + message;
+	public static String prepareSayBroadcast(String name, String message, Color colour) {
+		return "/mes/" + name + " says: " + message + "/mes/" + getColorName(colour) + "/mes/";
+	}
+
+	public static String prepareActBroadcast(String name, String message, Color colour) {
+		return "/mes/" + name + ": " + message + "/mes/" + getColorName(colour) + "/mes/";
+	}
+
+	public static String getColorName(Color c) {
+		for (Field f : Color.class.getFields()) {
+			try {
+				if (f.getType() == Color.class && f.get(null).equals(c)) {
+					return f.getName();
+				}
+			} catch (java.lang.IllegalAccessException e) {
+				// it should never get to here
+			}
+		}
+		return "unknown";
 	}
 }

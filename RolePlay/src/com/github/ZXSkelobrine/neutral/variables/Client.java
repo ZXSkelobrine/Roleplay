@@ -60,4 +60,11 @@ public class Client {
 	public Color getColour() {
 		return colour;
 	}
+	
+	public void nullify(){
+		this.colour = null;
+		this.description = null;
+		this.name = null;
+		this.socket = null;
+	}
 }

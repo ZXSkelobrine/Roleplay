@@ -41,10 +41,8 @@ public class Switch extends JComponent implements MouseListener {
 		int h = super.getSize().height;
 		int w = super.getSize().width;
 		if (on) {
-			System.out.println(on);
 			g.drawImage(tile_on, 0, 0, w, h, null);
 		} else {
-			System.out.println(on);
 			g.drawImage(tile_off, 0, 0, w, h, null);
 		}
 		super.paintComponents(g);

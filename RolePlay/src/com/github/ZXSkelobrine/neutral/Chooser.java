@@ -6,6 +6,7 @@ package com.github.ZXSkelobrine.neutral;
 
 import java.awt.EventQueue;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,6 +21,7 @@ import javax.swing.SwingConstants;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public class Chooser extends JFrame {
 
@@ -47,6 +49,13 @@ public class Chooser extends JFrame {
 	 */
 	public Chooser() {
 		WebLookAndFeel.install();
+		try {
+			String path = "/images/logo.png";
+			setTitle("Project Red Box - Chooser");
+			setIconImage(ImageIO.read(Chief.class.getResource(path)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 215, 201);
 		contentPane = new JPanel();
