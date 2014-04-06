@@ -3,6 +3,8 @@ package com.github.ZXSkelobrine.client.windows;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,11 +14,15 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
+import com.github.ZXSkelobrine.client.connections.Connection;
+import com.github.ZXSkelobrine.client.connections.Prompt;
+import com.github.ZXSkelobrine.client.connections.Types;
+
 public class Main extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField txtMessage;
 
 	/**
 	 * Create the frame.
@@ -53,6 +59,11 @@ public class Main extends JFrame {
 		contentPane.add(lstUsers, gbc_lstUsers);
 
 		JButton btnConnect = new JButton("Connect");
+		btnConnect.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new Prompt();
+			}
+		});
 		GridBagConstraints gbc_btnConnect = new GridBagConstraints();
 		gbc_btnConnect.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnConnect.insets = new Insets(0, 0, 5, 0);
@@ -61,6 +72,11 @@ public class Main extends JFrame {
 		contentPane.add(btnConnect, gbc_btnConnect);
 
 		JButton btnDisconnect = new JButton("Disconnect");
+		btnDisconnect.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Connection.disconnect();
+			}
+		});
 		GridBagConstraints gbc_btnDisconnect = new GridBagConstraints();
 		gbc_btnDisconnect.insets = new Insets(0, 0, 5, 0);
 		gbc_btnDisconnect.gridx = 2;
@@ -68,16 +84,21 @@ public class Main extends JFrame {
 
 		contentPane.add(btnDisconnect, gbc_btnDisconnect);
 
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 0;
-		gbc_textField.gridy = 2;
-		contentPane.add(textField, gbc_textField);
-		textField.setColumns(10);
+		txtMessage = new JTextField();
+		GridBagConstraints gbc_txtMessage = new GridBagConstraints();
+		gbc_txtMessage.insets = new Insets(0, 0, 5, 5);
+		gbc_txtMessage.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtMessage.gridx = 0;
+		gbc_txtMessage.gridy = 2;
+		contentPane.add(txtMessage, gbc_txtMessage);
+		txtMessage.setColumns(10);
 
 		JButton btnSend = new JButton("Say");
+		btnSend.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(Connection.send(Connection.prepareMessage(Types.Message_Say, txtMessage.getText())));
+			}
+		});
 		GridBagConstraints gbc_btnSend = new GridBagConstraints();
 		gbc_btnSend.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnSend.insets = new Insets(0, 0, 5, 5);

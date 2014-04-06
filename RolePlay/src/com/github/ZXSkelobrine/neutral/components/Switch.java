@@ -5,9 +5,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.ServerSocket;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
+
+import com.github.ZXSkelobrine.server.revolve.Chief;
+import com.github.ZXSkelobrine.server.threads.Accept;
+import com.github.ZXSkelobrine.server.threads.Listen;
 
 public class Switch extends JComponent implements MouseListener {
 	private static final long serialVersionUID = -4731477956048335021L;
@@ -16,9 +21,11 @@ public class Switch extends JComponent implements MouseListener {
 	BufferedImage tile_off;
 	String tile_on_path = "/images/switch_on.png";
 	String tile_off_path = "/images/switch_off.png";
+	boolean serverSwitch = false;
 
-	public Switch() {
+	public Switch(boolean serverSwitch) {
 		super();
+		this.serverSwitch = serverSwitch;
 		enableInputMethods(true);
 		addMouseListener(this);
 		try {
@@ -46,6 +53,22 @@ public class Switch extends JComponent implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		on = !on;
+		if (serverSwitch) {
+			if (on) {
+				if (Chief.serverSocket == null) {
+					try {
+						Chief.serverSocket = new ServerSocket(1111);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				Accept.startAccepting(Chief.serverSocket);
+				Listen.startListening();
+			} else {
+				Accept.stopAccepting();
+				Listen.stopListening();
+			}
+		}
 		super.repaint();
 	}
 

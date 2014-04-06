@@ -94,7 +94,7 @@ public class Connection {
 	 * @throws IOException
 	 */
 	private static boolean clientConnected() throws IOException {
-		return socket != null && socket.getOutputStream() != null && socket.getInputStream() != null && socket.getInputStream().read() != -1;
+		return socket != null && socket.getOutputStream() != null && socket.getInputStream() != null;
 	}
 
 	public static String prepareMessage(Types type, String message) {
@@ -107,6 +107,10 @@ public class Connection {
 			return "/mes/" + id + "/mes/" + message + "/mes/";
 		case User:
 			return "/usr/" + id + "/usr/" + message + "/usr/";
+		case Message_Do:
+			return "/act/" + id + "/act/" + message + "/act/";
+		case Message_Say:
+			return "/say/" + id + "/say/" + message + "/say/";
 		default:
 			return "";
 		}

@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.alee.laf.WebLookAndFeel;
 import com.github.ZXSkelobrine.client.windows.Main;
+import com.github.ZXSkelobrine.server.revolve.Chief;
 
 import javax.swing.SwingConstants;
 
@@ -56,6 +57,8 @@ public class Chooser extends JFrame {
 		JButton btnServer = new JButton("Start A Server");
 		btnServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				new Chief();
+				dismiss();
 			}
 		});
 		btnServer.setBounds(10, 11, 179, 23);

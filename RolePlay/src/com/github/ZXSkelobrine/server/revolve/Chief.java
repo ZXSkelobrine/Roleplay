@@ -1,5 +1,7 @@
 package com.github.ZXSkelobrine.server.revolve;
 
+import java.net.ServerSocket;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -9,11 +11,15 @@ import javax.swing.border.EmptyBorder;
 
 import com.alee.laf.WebLookAndFeel;
 import com.github.ZXSkelobrine.neutral.components.Switch;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
 
 public class Chief extends JFrame {
 
 	private static final long serialVersionUID = -3780196426709350855L;
 	private JPanel contentPane;
+	public static ServerSocket serverSocket;
+	private static JTextPane txtpnConsole;
 
 	/**
 	 * Create the frame.
@@ -27,7 +33,7 @@ public class Chief extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		Switch btnNewButton = new Switch();
+		Switch btnNewButton = new Switch(true);
 		btnNewButton.setBounds(188, 25, 57, 28);
 		contentPane.add(btnNewButton);
 
@@ -41,8 +47,27 @@ public class Chief extends JFrame {
 		lblUsers.setBounds(196, 75, 42, 14);
 		contentPane.add(lblUsers);
 
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 100, 414, 77);
+		contentPane.add(scrollPane);
+
 		JList<String> list = new JList<String>();
-		list.setBounds(10, 100, 414, 151);
-		contentPane.add(list);
+		scrollPane.setViewportView(list);
+
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 181, 414, 70);
+		contentPane.add(scrollPane_1);
+
+		txtpnConsole = new JTextPane();
+		scrollPane_1.setViewportView(txtpnConsole);
+		initFinished();
+	}
+
+	private void initFinished() {
+		setVisible(true);
+	}
+
+	public static void logMessage(String thread, String message) {
+		txtpnConsole.setText(txtpnConsole.getText() + thread + ": " + message + "\n");
 	}
 }
