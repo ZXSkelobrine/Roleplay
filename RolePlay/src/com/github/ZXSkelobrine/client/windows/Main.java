@@ -15,7 +15,6 @@ import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
 import com.github.ZXSkelobrine.client.connections.Connection;
-import com.github.ZXSkelobrine.client.connections.Prompt;
 import com.github.ZXSkelobrine.client.connections.Types;
 
 public class Main extends JFrame {

@@ -87,7 +87,6 @@ public class Connection {
 	 * <li>Is the socket null?</li>
 	 * <li>Is the output stream null?</li>
 	 * <li>Is the input stream null?</li>
-	 * <li>Is the next integer of data -1?</li>
 	 * </ul>
 	 * 
 	 * @return Whether the socket is open
@@ -111,6 +110,10 @@ public class Connection {
 			return "/act/" + id + "/act/" + message + "/act/";
 		case Message_Say:
 			return "/say/" + id + "/say/" + message + "/say/";
+		case Description:
+			return "/des/" + id + "/des/" + message + "/des/";
+		case Name:
+			return "/nam/" + id + "/nam/" + message + "/nam/";
 		default:
 			return "";
 		}
