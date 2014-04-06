@@ -65,7 +65,6 @@ public class PrivateMessage extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if (txtMessage != null && txtMessage.getText() != null && !txtMessage.getText().equals("")) {
 					Connection.send(Connection.prepareMessage(Types.Private_Message, PrivateMessage.user + "/prm/" + txtMessage.getText(), Connection.colour));
-					appendMessage(Main, message, colour)
 				}
 			}
 		});
