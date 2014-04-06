@@ -32,8 +32,9 @@ public class Messages {
 
 	private static void details(String message, Client client) {
 		Client about = Connections.getClientFromName(message.split("/det/")[2]);
-		String toMessage = "/det/" + about.getName() + "/det/" + about.getDescription() + "/det/" + about.getColour() + "/det/";
+		String toMessage = "/det/" + about.getName() + "/det/" + about.getDescription() + "/det/" + getColorName(about.getColour()) + "/det/";
 		Sending.send(toMessage, client.getSocket());
+
 	}
 
 	private static void users(String message, Client client) {
@@ -100,5 +101,18 @@ public class Messages {
 		// 1 - ID
 		// 2 - Message
 		Sending.broadcast(Sending.prepareSayBroadcast(client.getName(), message.split("/say/")[2], client.getColour()));
+	}
+
+	public static String getColorName(Color c) {
+		for (Field f : Color.class.getFields()) {
+			try {
+				if (f.getType() == Color.class && f.get(null).equals(c)) {
+					return f.getName();
+				}
+			} catch (java.lang.IllegalAccessException e) {
+				// it should never get to here
+			}
+		}
+		return "unknown";
 	}
 }

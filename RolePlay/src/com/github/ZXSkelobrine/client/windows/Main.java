@@ -51,14 +51,15 @@ public class Main extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] { 310, 114, 0, 0 };
-		gbl_contentPane.rowHeights = new int[] { 0, 100, 29, 0, 0 };
+		gbl_contentPane.rowHeights = new int[] { 0, 0, 0, 100, 29, 0, 0 };
 		gbl_contentPane.columnWeights = new double[] { 1.0, 1.0, 0.0, Double.MIN_VALUE };
-		gbl_contentPane.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPane.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
 		txtpnMessages = new JTextPane();
+		txtpnMessages.setEditable(false);
 		GridBagConstraints gbc_txtpnMessages = new GridBagConstraints();
-		gbc_txtpnMessages.gridheight = 2;
+		gbc_txtpnMessages.gridheight = 4;
 		gbc_txtpnMessages.insets = new Insets(0, 0, 5, 5);
 		gbc_txtpnMessages.fill = GridBagConstraints.BOTH;
 		gbc_txtpnMessages.gridx = 0;
@@ -67,7 +68,7 @@ public class Main extends JFrame {
 
 		lstUsers = new JList<String>();
 		GridBagConstraints gbc_lstUsers = new GridBagConstraints();
-		gbc_lstUsers.gridheight = 2;
+		gbc_lstUsers.gridheight = 4;
 		gbc_lstUsers.insets = new Insets(0, 0, 5, 5);
 		gbc_lstUsers.fill = GridBagConstraints.BOTH;
 		gbc_lstUsers.gridx = 1;
@@ -93,10 +94,36 @@ public class Main extends JFrame {
 				Connection.disconnect();
 			}
 		});
+
+		JButton btnDetails = new JButton("Details");
+		btnDetails.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Connection.send(Connection.prepareMessage(Types.Details, lstUsers.getSelectedValue(), ""));
+			}
+		});
+
+		JButton btnPm = new JButton("PM");
+		btnPm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		GridBagConstraints gbc_btnPm = new GridBagConstraints();
+		gbc_btnPm.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnPm.insets = new Insets(0, 0, 5, 0);
+		gbc_btnPm.gridx = 2;
+		gbc_btnPm.gridy = 1;
+		contentPane.add(btnPm, gbc_btnPm);
+		GridBagConstraints gbc_btnDetails = new GridBagConstraints();
+		gbc_btnDetails.insets = new Insets(0, 0, 5, 0);
+		gbc_btnDetails.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnDetails.gridx = 2;
+		gbc_btnDetails.gridy = 2;
+		contentPane.add(btnDetails, gbc_btnDetails);
 		GridBagConstraints gbc_btnDisconnect = new GridBagConstraints();
 		gbc_btnDisconnect.insets = new Insets(0, 0, 5, 0);
 		gbc_btnDisconnect.gridx = 2;
-		gbc_btnDisconnect.gridy = 1;
+		gbc_btnDisconnect.gridy = 3;
 
 		contentPane.add(btnDisconnect, gbc_btnDisconnect);
 
@@ -105,7 +132,7 @@ public class Main extends JFrame {
 		gbc_txtMessage.insets = new Insets(0, 0, 5, 5);
 		gbc_txtMessage.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtMessage.gridx = 0;
-		gbc_txtMessage.gridy = 2;
+		gbc_txtMessage.gridy = 4;
 		contentPane.add(txtMessage, gbc_txtMessage);
 		txtMessage.setColumns(10);
 
@@ -123,21 +150,8 @@ public class Main extends JFrame {
 		gbc_btnSend.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnSend.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSend.gridx = 1;
-		gbc_btnSend.gridy = 2;
+		gbc_btnSend.gridy = 4;
 		contentPane.add(btnSend, gbc_btnSend);
-
-		JButton btnDetails = new JButton("Details");
-		btnDetails.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Connection.send(Connection.prepareMessage(Types.Details, lstUsers.getSelectedValue(), ""));
-			}
-		});
-		GridBagConstraints gbc_btnDetails = new GridBagConstraints();
-		gbc_btnDetails.insets = new Insets(0, 0, 5, 0);
-		gbc_btnDetails.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnDetails.gridx = 2;
-		gbc_btnDetails.gridy = 2;
-		contentPane.add(btnDetails, gbc_btnDetails);
 
 		JButton btnDo = new JButton("Do");
 		btnDo.addActionListener(new ActionListener() {
@@ -153,7 +167,7 @@ public class Main extends JFrame {
 		gbc_btnDo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnDo.insets = new Insets(0, 0, 0, 5);
 		gbc_btnDo.gridx = 1;
-		gbc_btnDo.gridy = 3;
+		gbc_btnDo.gridy = 5;
 		contentPane.add(btnDo, gbc_btnDo);
 		initCompleted();
 	}

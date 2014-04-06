@@ -128,6 +128,8 @@ public class Connection {
 			return "/nam/" + id + "/nam/" + message + "/nam/" + colour + "/nam/";
 		case Colour:
 			return "/col/" + id + "/col/" + message + "/col/" + colour + "/col/";
+		case Private_Message:
+			return "/prm/" + id + "/prm/" + message + "/prm/" + colour + "/prm/";
 		default:
 			return "";
 		}

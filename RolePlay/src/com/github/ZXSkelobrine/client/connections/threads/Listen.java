@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 
 import com.github.ZXSkelobrine.client.connections.Connection;
+import com.github.ZXSkelobrine.client.windows.Details;
 import com.github.ZXSkelobrine.client.windows.Main;
 
 public class Listen {
@@ -32,9 +33,11 @@ public class Listen {
 									String[] users = new String(arg0).split("/usr/");
 									Main.updateUsers(users);
 								} else if (new String(arg0).substring(1, 4).equalsIgnoreCase("det")) {
-									//1 - Name
-									//2 - Description
-									//3 - Colour
+									// 1 - Name
+									// 2 - Description
+									// 3 - Colour
+									String[] info = new String(arg0).split("/det/");
+									new Details(info[1], info[2], info[3]);
 								} else {
 									Main.logMessage(new String(arg0).split("/mes/")[1], getColourFromString(new String(arg0).split("/mes/")[2]));
 								}
