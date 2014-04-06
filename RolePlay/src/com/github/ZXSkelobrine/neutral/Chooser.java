@@ -5,12 +5,17 @@
 package com.github.ZXSkelobrine.neutral;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.alee.laf.WebLookAndFeel;
@@ -18,17 +23,14 @@ import com.github.ZXSkelobrine.client.connections.Connection;
 import com.github.ZXSkelobrine.client.windows.Main;
 import com.github.ZXSkelobrine.server.revolve.Chief;
 
-import javax.swing.SwingConstants;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.io.IOException;
-
 public class Chooser extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private static boolean isClient = true;
+	private static int value = new Random().nextInt(7) + 1;
+	public static BufferedImage currentLogo;
+	private static String path = "/images/logo_" + value + ".png";
 
 	/**
 	 * Launch the application.
@@ -45,6 +47,7 @@ public class Chooser extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					currentLogo = ImageIO.read(Chooser.class.getResource(path));
 					Chooser frame = new Chooser();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -59,13 +62,8 @@ public class Chooser extends JFrame {
 	 */
 	public Chooser() {
 		WebLookAndFeel.install();
-		try {
-			String path = "/images/logo.png";
-			setTitle("Project Red Box - Chooser");
-			setIconImage(ImageIO.read(Chief.class.getResource(path)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		setTitle("Project Coloured Box - Chooser");
+		setIconImage(currentLogo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 215, 201);
 		contentPane = new JPanel();
@@ -104,4 +102,5 @@ public class Chooser extends JFrame {
 	public void dismiss() {
 		dispose();
 	}
+
 }

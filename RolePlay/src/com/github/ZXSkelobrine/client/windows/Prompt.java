@@ -2,14 +2,15 @@ package com.github.ZXSkelobrine.client.windows;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -18,11 +19,7 @@ import com.alee.laf.WebLookAndFeel;
 import com.github.ZXSkelobrine.client.connections.Connection;
 import com.github.ZXSkelobrine.client.connections.Types;
 import com.github.ZXSkelobrine.client.connections.threads.Listen;
-import com.github.ZXSkelobrine.server.revolve.Chief;
-
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
-import javax.swing.JComboBox;
+import com.github.ZXSkelobrine.neutral.Chooser;
 
 public class Prompt extends JFrame {
 
@@ -39,13 +36,8 @@ public class Prompt extends JFrame {
 	 */
 	public Prompt() {
 		WebLookAndFeel.install();
-		try {
-			String path = "/images/logo.png";
-			setTitle("Project Red Box - Connect");
-			setIconImage(ImageIO.read(Chief.class.getResource(path)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		setTitle("Project Coloured Box - Connect");
+		setIconImage(Chooser.currentLogo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 291, 312);
 		contentPane = new JPanel();

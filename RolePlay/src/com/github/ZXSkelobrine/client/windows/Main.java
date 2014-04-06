@@ -6,9 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -23,7 +21,7 @@ import javax.swing.text.StyledDocument;
 
 import com.github.ZXSkelobrine.client.connections.Connection;
 import com.github.ZXSkelobrine.client.connections.Types;
-import com.github.ZXSkelobrine.server.revolve.Chief;
+import com.github.ZXSkelobrine.neutral.Chooser;
 
 public class Main extends JFrame {
 
@@ -37,13 +35,8 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
-		try {
-			String path = "/images/logo.png";
-			setTitle("Project Red Box - Client");
-			setIconImage(ImageIO.read(Chief.class.getResource(path)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		setTitle("Project Coloured Box - Client");
+		setIconImage(Chooser.currentLogo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 535, 417);
 		contentPane = new JPanel();

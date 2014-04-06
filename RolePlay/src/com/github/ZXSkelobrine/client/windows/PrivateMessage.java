@@ -1,9 +1,9 @@
 package com.github.ZXSkelobrine.client.windows;
 
 import java.awt.Color;
-import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,10 +17,7 @@ import javax.swing.text.StyledDocument;
 
 import com.github.ZXSkelobrine.client.connections.Connection;
 import com.github.ZXSkelobrine.client.connections.Types;
-import com.github.ZXSkelobrine.server.revolve.Chief;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import com.github.ZXSkelobrine.neutral.Chooser;
 
 public class PrivateMessage extends JFrame {
 
@@ -37,13 +34,8 @@ public class PrivateMessage extends JFrame {
 	public PrivateMessage(String user) {
 		PrivateMessage.user = user;
 		setResizable(false);
-		try {
-			String path = "/images/logo.png";
-			setTitle("Project Red Box - PM");
-			setIconImage(ImageIO.read(Chief.class.getResource(path)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		setTitle("Project Coloured Box - PM");
+		setIconImage(Chooser.currentLogo);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 289, 378);
 		contentPane = new JPanel();

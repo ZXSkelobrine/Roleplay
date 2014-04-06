@@ -1,21 +1,19 @@
 package com.github.ZXSkelobrine.server.revolve;
 
-import java.io.IOException;
 import java.net.ServerSocket;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.alee.laf.WebLookAndFeel;
+import com.github.ZXSkelobrine.neutral.Chooser;
 import com.github.ZXSkelobrine.neutral.components.Switch;
-
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
 
 public class Chief extends JFrame {
 
@@ -29,13 +27,8 @@ public class Chief extends JFrame {
 	 */
 	public Chief() {
 		WebLookAndFeel.install();
-		try {
-			String path = "/images/logo.png";
-			setTitle("Project Red Box - Server");
-			setIconImage(ImageIO.read(Chief.class.getResource(path)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		setTitle("Project Coloured Box - Server");
+		setIconImage(Chooser.currentLogo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
