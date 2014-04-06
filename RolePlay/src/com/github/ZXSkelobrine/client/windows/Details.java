@@ -2,7 +2,9 @@ package com.github.ZXSkelobrine.client.windows;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,6 +14,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import com.github.ZXSkelobrine.server.revolve.Chief;
 
 public class Details extends JFrame {
 
@@ -24,6 +28,13 @@ public class Details extends JFrame {
 	 * Create the frame.
 	 */
 	public Details(String name, String description, String colour) {
+		try {
+			String path = "/images/logo.png";
+			setTitle("Project Red Box - Details");
+			setIconImage(ImageIO.read(Chief.class.getResource(path)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 277, 350);
 		contentPane = new JPanel();

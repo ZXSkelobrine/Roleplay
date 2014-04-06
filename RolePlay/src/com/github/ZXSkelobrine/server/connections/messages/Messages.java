@@ -13,21 +13,35 @@ public class Messages {
 		if (type.equalsIgnoreCase("say")) {// Say
 			say(message, client);
 		}
-		if (type.equalsIgnoreCase("nam")) {// Name
+		if (type.equalsIgnoreCase("nam")) {// Set Name, Description and Colour
 			name(message, client);
 		}
-		if (type.equalsIgnoreCase("act")) {// Act
+		if (type.equalsIgnoreCase("act")) {// Perform Act
 			act(message, client);
 		}
-		if (type.equalsIgnoreCase("clo")) {// Close
+		if (type.equalsIgnoreCase("clo")) {// Close Connection
 			close(message, client);
 		}
 		if (type.equalsIgnoreCase("usr")) {// User List
 			users(message, client);
 		}
-		if (type.equalsIgnoreCase("det")) {// Details
+		if (type.equalsIgnoreCase("det")) {// User Details
 			details(message, client);
 		}
+		if (type.equalsIgnoreCase("prm")) {// Private Message
+			priv(message, client);
+		}
+	}
+
+	private static void priv(String message, Client client) {
+		// 0 - Nothing
+		// 1 - ID
+		// 2 - To
+		// 3 - Message
+		// 4 - Colour
+		Client toSend = Connections.getClientFromName(message.split("/prm/")[2]);
+		Sending.send("/prm/" + client.getName() + "/prm/" + message.split("/prm/")[3] + "/prm/" + getColorName(client.getColour()) + "/prm/", toSend.getSocket());
+		Sending.send("/prm/" + client.getName() + "/prm/" + message.split("/prm/")[3] + "/prm/" + getColorName(client.getColour()) + "/prm/", client.getSocket());
 	}
 
 	private static void details(String message, Client client) {

@@ -98,14 +98,19 @@ public class Main extends JFrame {
 		JButton btnDetails = new JButton("Details");
 		btnDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Connection.send(Connection.prepareMessage(Types.Details, lstUsers.getSelectedValue(), ""));
+				if (lstUsers.getSelectedValue() != null) {
+					Connection.send(Connection.prepareMessage(Types.Details, lstUsers.getSelectedValue(), ""));
+				}
 			}
 		});
 
 		JButton btnPm = new JButton("PM");
 		btnPm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				if (lstUsers.getSelectedValue() != null) {
+					new PrivateMessage(lstUsers.getSelectedValue());
+				}
+
 			}
 		});
 		GridBagConstraints gbc_btnPm = new GridBagConstraints();
