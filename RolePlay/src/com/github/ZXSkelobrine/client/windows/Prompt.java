@@ -101,6 +101,7 @@ public class Prompt extends JFrame {
 		contentPane.add(scrollPane);
 
 		txtrDescription = new JTextArea();
+		txtrDescription.setLineWrap(true);
 		scrollPane.setViewportView(txtrDescription);
 
 		JLabel lblCharacterColour = new JLabel("Character Colour:");
