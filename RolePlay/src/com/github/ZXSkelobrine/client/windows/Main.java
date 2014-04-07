@@ -183,6 +183,7 @@ public class Main extends JFrame {
 		StyleConstants.setForeground(style, colour);
 		try {
 			doc.insertString(doc.getLength(), message + "\n", style);
+			txtpnMessages.setCaretPosition(txtpnMessages.getText().length());
 		} catch (BadLocationException e) {
 			e.printStackTrace();
 		}

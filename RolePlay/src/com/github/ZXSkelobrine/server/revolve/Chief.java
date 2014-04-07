@@ -74,8 +74,10 @@ public class Chief extends JFrame {
 		if (txtpnConsole != null) {
 			if (txtpnConsole.getText() != null) {
 				txtpnConsole.setText(txtpnConsole.getText() + thread + ": " + message + "\n");
+				txtpnConsole.setCaretPosition(txtpnConsole.getText().length());
 			} else {
 				txtpnConsole.setText(thread + ": " + message + "\n");
+				txtpnConsole.setCaretPosition(txtpnConsole.getText().length());
 			}
 		}
 	}
