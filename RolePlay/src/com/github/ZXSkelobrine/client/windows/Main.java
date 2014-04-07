@@ -30,12 +30,13 @@ public class Main extends JFrame {
 	private JTextField txtMessage;
 	private static JTextPane txtpnMessages;
 	private static JList<String> lstUsers;
+	static JButton btnConnect, btnDisconnect, btnDetails, btnPm, btnSend, btnDo;
 
 	/**
 	 * Create the frame.
 	 */
 	public Main() {
-		setTitle("Project Coloured Box - Client");
+		setTitle("Project Coloured Chest - Client");
 		setIconImage(Chooser.currentLogo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 535, 417);
@@ -68,7 +69,7 @@ public class Main extends JFrame {
 		gbc_lstUsers.gridy = 0;
 		contentPane.add(lstUsers, gbc_lstUsers);
 
-		JButton btnConnect = new JButton("Connect");
+		btnConnect = new JButton("Connect");
 		btnConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new Prompt();
@@ -81,14 +82,14 @@ public class Main extends JFrame {
 		gbc_btnConnect.gridy = 0;
 		contentPane.add(btnConnect, gbc_btnConnect);
 
-		JButton btnDisconnect = new JButton("Disconnect");
+		btnDisconnect = new JButton("Disconnect");
 		btnDisconnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Connection.disconnect();
 			}
 		});
 
-		JButton btnDetails = new JButton("Details");
+		btnDetails = new JButton("Details");
 		btnDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (lstUsers.getSelectedValue() != null) {
@@ -97,7 +98,7 @@ public class Main extends JFrame {
 			}
 		});
 
-		JButton btnPm = new JButton("PM");
+		btnPm = new JButton("PM");
 		btnPm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (lstUsers.getSelectedValue() != null) {
@@ -134,7 +135,7 @@ public class Main extends JFrame {
 		contentPane.add(txtMessage, gbc_txtMessage);
 		txtMessage.setColumns(10);
 
-		JButton btnSend = new JButton("Say");
+		btnSend = new JButton("Say");
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (!txtMessage.getText().equalsIgnoreCase("") && txtMessage.getText() != null) {
@@ -151,7 +152,7 @@ public class Main extends JFrame {
 		gbc_btnSend.gridy = 4;
 		contentPane.add(btnSend, gbc_btnSend);
 
-		JButton btnDo = new JButton("Do");
+		btnDo = new JButton("Do");
 		btnDo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (!txtMessage.getText().equalsIgnoreCase("") && txtMessage.getText() != null) {
@@ -173,6 +174,7 @@ public class Main extends JFrame {
 	private void initCompleted() {
 		setVisible(true);
 		userThread();
+		connectionThread();
 	}
 
 	public static void logMessage(String message, Color colour) {
@@ -184,6 +186,38 @@ public class Main extends JFrame {
 		} catch (BadLocationException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static void connectionThread() {
+		Thread thread = new Thread("Connection Thread") {
+			@Override
+			public void run() {
+				while (true) {
+					if (Connection.connected) {
+						btnConnect.setEnabled(false);
+						btnDetails.setEnabled(true);
+						btnDisconnect.setEnabled(true);
+						btnDo.setEnabled(true);
+						btnPm.setEnabled(true);
+						btnSend.setEnabled(true);
+					} else {
+						btnConnect.setEnabled(true);
+						btnDetails.setEnabled(false);
+						btnDisconnect.setEnabled(false);
+						btnDo.setEnabled(false);
+						btnPm.setEnabled(false);
+						btnSend.setEnabled(false);
+					}
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		};
+		thread.start();
 	}
 
 	public static void userThread() {

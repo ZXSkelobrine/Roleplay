@@ -27,7 +27,7 @@ public class Chief extends JFrame {
 	 */
 	public Chief() {
 		WebLookAndFeel.install();
-		setTitle("Project Coloured Box - Server");
+		setTitle("Project Coloured Chest - Server");
 		setIconImage(Chooser.currentLogo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

@@ -62,7 +62,7 @@ public class Chooser extends JFrame {
 	 */
 	public Chooser() {
 		WebLookAndFeel.install();
-		setTitle("Project Coloured Box - Chooser");
+		setTitle("Project Coloured Chest - Chooser");
 		setIconImage(currentLogo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 215, 201);

@@ -26,7 +26,7 @@ public class Details extends JFrame {
 	 * Create the frame.
 	 */
 	public Details(String name, String description, String colour) {
-		setTitle("Project Coloured Box - Details");
+		setTitle("Project Coloured Chest - Details");
 		setIconImage(Chooser.currentLogo);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 277, 350);

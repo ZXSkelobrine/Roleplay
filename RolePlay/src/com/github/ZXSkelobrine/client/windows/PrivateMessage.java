@@ -34,7 +34,7 @@ public class PrivateMessage extends JFrame {
 	public PrivateMessage(String user) {
 		PrivateMessage.user = user;
 		setResizable(false);
-		setTitle("Project Coloured Box - PM");
+		setTitle("Project Coloured Chest - PM");
 		setIconImage(Chooser.currentLogo);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 289, 378);

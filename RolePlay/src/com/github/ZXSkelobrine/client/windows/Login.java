@@ -27,7 +27,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
-		setTitle("Project Coloured Box - Login");
+		setTitle("Project Coloured Chest - Login");
 		setIconImage(Chooser.currentLogo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 252, 178);

@@ -36,7 +36,7 @@ public class Prompt extends JFrame {
 	 */
 	public Prompt() {
 		WebLookAndFeel.install();
-		setTitle("Project Coloured Box - Connect");
+		setTitle("Project Coloured Chest - Connect");
 		setIconImage(Chooser.currentLogo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 291, 312);

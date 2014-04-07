@@ -7,6 +7,7 @@ public class Connection {
 	public static Socket socket;
 	public static String id = Identification.generateNewID();
 	public static String colour;
+	public static boolean connected = false;
 
 	/**
 	 * This attempts to connect to the given server.
@@ -16,6 +17,7 @@ public class Connection {
 	public static boolean connect(String host, int port) {
 		try {
 			socket = new Socket(host, port);
+			connected = true;
 			return true;
 		} catch (IOException e) {
 			System.out.println("Error Locations:");
@@ -45,6 +47,7 @@ public class Connection {
 		try {
 			socket.getOutputStream().write(("/clo/" + id + "/clo/close/clo/").getBytes());
 			socket.close();
+			connected = false;
 			return true;
 		} catch (IOException e) {
 			System.out.println("Error Locations:");
