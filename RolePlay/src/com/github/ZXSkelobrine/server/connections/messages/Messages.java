@@ -16,6 +16,12 @@ public class Messages {
 		if (type.equalsIgnoreCase("nam")) {// Set Name, Description and Colour
 			name(message, client);
 		}
+		if (type.equalsIgnoreCase("des")) {// Set Name, Description and Colour
+			description(message, client);
+		}
+		if (type.equalsIgnoreCase("col")) {// Set Name, Description and Colour
+			colour(message, client);
+		}
 		if (type.equalsIgnoreCase("act")) {// Perform Act
 			act(message, client);
 		}
@@ -30,6 +36,18 @@ public class Messages {
 		}
 		if (type.equalsIgnoreCase("prm")) {// Private Message
 			priv(message, client);
+		}
+	}
+
+	private static void colour(String message, Client client) {
+		Connections.setClientColour(getColourFromString(message.split("/col/")[2]), client);
+	}
+
+	private static void description(String message, Client client) {
+		Connections.setClientDescription(message.split("/des/")[2], client);
+		try {
+			Connections.setClientColour(getColourFromString(message.split("/col/")[2]), client);
+		} catch (ArrayIndexOutOfBoundsException e) {
 		}
 	}
 
@@ -87,8 +105,11 @@ public class Messages {
 		// 1 - ID
 		// 2 - Description
 		Connections.setClientName(message.split("/nam/")[2], client);
-		Connections.setClientDescription(message.split("/des/")[2], client);
-		Connections.setClientColour(getColourFromString(message.split("/col/")[2]), client);
+		try {
+			Connections.setClientDescription(message.split("/des/")[2], client);
+			Connections.setClientColour(getColourFromString(message.split("/col/")[2]), client);
+		} catch (ArrayIndexOutOfBoundsException e) {
+		}
 	}
 
 	private static Color getColourFromString(String string) {

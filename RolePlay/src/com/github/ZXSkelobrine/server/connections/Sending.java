@@ -35,11 +35,11 @@ public class Sending {
 	}
 
 	public static String prepareSayBroadcast(String name, String message, Color colour) {
-		return "/mes/" + name + " says: " + message + "/mes/" + getColorName(colour) + "/mes/";
+		return "/mes/" + name + " says " + message + "/mes/" + getColorName(colour) + "/mes/";
 	}
 
 	public static String prepareActBroadcast(String name, String message, Color colour) {
-		return "/mes/" + name + ": " + message + "/mes/" + getColorName(colour) + "/mes/";
+		return "/mes/" + name + " " + message + "/mes/" + getColorName(colour) + "/mes/";
 	}
 
 	public static String getColorName(Color c) {
